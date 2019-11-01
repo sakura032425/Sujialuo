@@ -1,21 +1,36 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-
+int k;
+bool flag = 0;
 int main()
 {
 	int next[100] = { 0 };
+
 	void Next(char *p, int *next_);
-	int KMP(char *s, char *p, int *next);
+	void KMP(char *s, char *p, int *next);
 	char s[100];
 	char p[20];
 
 	cout << "主串:";
 	gets(s);                                //输入主串
 	cout << "子串:";
-	gets(p);                                //输入子串
-	Next(p, next);                          //计算next数组
-	cout << KMP(s, p, next) << endl;        //执行kmp并输出
+	gets(p);
+	k = (int)strlen(p);     //输入子串
+	Next(p, next);          //计算next数组
+	while (k) {
+		flag = 0;
+		KMP(s, p, next);
+		k--;
+		if (flag == 1) {
+			cout << endl;
+			cout << "最长公共串为:";
+			for (int i = 0; i <= k; i++)
+				cout << p[i]; //输出最长公共串
+			cout << endl;
+			break;
+		}
+	}      //执行kmp并输出
 }
 void Next(char *p, int *next_)
 {
@@ -40,10 +55,11 @@ void KMP(char *s, char *p, int *next)
 		if (j == -1 || s[i] == p[j]) {
 			i++;
 			j++;                                    //匹配成功 下标后移
-			if (j == (int)strlen(p)) {
+			if (j == k) {
 				cout << i + 1 - j << " ";       //匹配成功，输出位置
 				i = i + 1 - j;                  //向后移 准备进行下一次匹配
-				j = 0;                          //从子串初始位置开始进行比较
+				j = 0;
+				flag = 1;                       //从子串初始位置开始进行比较
 			}
 		} else {
 			j = next[j];//匹配不成功，回退j的值
