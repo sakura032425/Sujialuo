@@ -7,11 +7,11 @@ int main()
 	int next[100] = { 0 };
 	void Next(char *p, int *next_);
 	int KMP(char *s, char *p, int *next);
-	char s[100] = "asdfwerabcsdfwerlkjhf";
+	char s[100];
 	char p[20];
 
 	cout << "Ö÷´®:";
-	puts(s);
+	gets(s);
 	cout << "×Ó´®:";
 	gets(p);
 	Next(p, next);
